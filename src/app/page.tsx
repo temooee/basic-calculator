@@ -1,5 +1,5 @@
 'use client'
-import {Card, CardHeader, CardContent, CardFooter} from "@/components/ui/card";
+import {Card, CardHeader, CardContent} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
 import {useState} from "react";
 
@@ -19,11 +19,13 @@ export default function Home() {
         }
         // In case of Multiplication
         if (multiply.length > 1) {
-            setInputNumber((Number(multiply[0]) * Number(multiply[1])).toString())
+            // setInputNumber((Number(multiply[0]) * Number(multiply[1])).toString())
+            setInputNumber(multiply.reduce((partialSum, a) => Number(partialSum) * Number(a), 1).toString())
         }
         // In case of subtraction
         if (minus.length > 1) {
-            setInputNumber((Number(minus[0]) - Number(minus[1])).toString())
+            // setInputNumber((Number(minus[0]) - Number(minus[1])).toString())
+            setInputNumber(minus.reduce((partialSum, a) => Number(partialSum) - Number(a), Number(minus[0])*2).toString())
         }
         // In case of division
         if (division.length > 1) {
@@ -32,32 +34,43 @@ export default function Home() {
     }
     // End of Submit function
   return (
-      <Card className="w-[350px]">
-        <CardHeader>
-            <div>{inputNumber}</div>
-        </CardHeader>
-          <CardContent>
-              <Button onClick={() => {setInputNumber(inputNumber + '0')}}>0</Button>
-              <Button onClick={() => {setInputNumber(inputNumber + '1')}}>1</Button>
-              <Button onClick={() => {setInputNumber(inputNumber + '2')}}>2</Button>
-              <Button onClick={() => {setInputNumber(inputNumber + '3')}}>3</Button>
-              <Button onClick={() => {setInputNumber(inputNumber + '4')}}>4</Button>
-              <Button onClick={() => {setInputNumber(inputNumber + '5')}}>5</Button>
-              <Button onClick={() => {setInputNumber(inputNumber + '6')}}>6</Button>
-              <Button onClick={() => {setInputNumber(inputNumber + '7')}}>7</Button>
-              <Button onClick={() => {setInputNumber(inputNumber + '8')}}>8</Button>
-              <Button onClick={() => {setInputNumber(inputNumber + '9')}}>9</Button>
-              <Button onClick={() => {setInputNumber(inputNumber + '+')}}>+</Button>
-              <Button onClick={() => {setInputNumber(inputNumber + '-')}}>-</Button>
-              <Button onClick={() => {setInputNumber(inputNumber + '*')}}>*</Button>
-              <Button onClick={() => {setInputNumber(inputNumber + '/')}}>/</Button>
-              <Button onClick={() => {setInputNumber('')}}>C</Button>
-              <Button onClick={() => {setInputNumber(inputNumber.slice(0, -1))}}>CE</Button>
-              <Button onClick={() => {setInputNumber('-' + inputNumber)}}>+-</Button>
-          </CardContent>
-          <CardFooter>
-              <Button onClick={() => {submit()}}>=</Button>
-          </CardFooter>
-      </Card>
+      <div className={'flex justify-center items-center h-screen'}>
+          <Card className="w-[350px]">
+              <CardHeader>
+                  <div>{inputNumber}</div>
+              </CardHeader>
+              <CardContent>
+                  <div className={'flex justify-evenly gap-1 my-1'}>
+                      <Button className={'w-[70px] h-[70px] rounded-full bg-gray-600 text-3xl hover:bg-red-700'} onClick={() => {setInputNumber('')}}>C</Button>
+                      <Button className={'w-[70px] h-[70px] rounded-full bg-gray-600 text-3xl hover:bg-red-700'} onClick={() => {setInputNumber(inputNumber.slice(0, -1))}}>CE</Button>
+                      <Button className={'w-[70px] h-[70px] rounded-full bg-gray-600 text-3xl'} onClick={() => {setInputNumber('')}}>%</Button>
+                      <Button className={'w-[70px] h-[70px] rounded-full bg-green-900 text-3xl'} onClick={() => {setInputNumber(inputNumber + '/')}}>/</Button>
+                  </div>
+                  <div className={'flex justify-evenly gap-1 my-1'}>
+                      <Button className={'w-[70px] h-[70px] text-3xl'} onClick={() => {setInputNumber(inputNumber + '7')}}>7</Button>
+                      <Button className={'w-[70px] h-[70px] text-3xl'} onClick={() => {setInputNumber(inputNumber + '8')}}>8</Button>
+                      <Button className={'w-[70px] h-[70px] text-3xl'} onClick={() => {setInputNumber(inputNumber + '9')}}>9</Button>
+                      <Button className={'w-[70px] h-[70px] rounded-full bg-green-900 text-3xl'} onClick={() => {setInputNumber(inputNumber + '*')}}>X</Button>
+                  </div>
+                  <div className={'flex justify-evenly gap-1 my-1'}>
+                      <Button className={'w-[70px] h-[70px] text-3xl'} onClick={() => {setInputNumber(inputNumber + '4')}}>4</Button>
+                      <Button className={'w-[70px] h-[70px] text-3xl'} onClick={() => {setInputNumber(inputNumber + '5')}}>5</Button>
+                      <Button className={'w-[70px] h-[70px] text-3xl'} onClick={() => {setInputNumber(inputNumber + '6')}}>6</Button>
+                      <Button className={'w-[70px] h-[70px] rounded-full bg-green-900 text-3xl'} onClick={() => {setInputNumber(inputNumber + '-')}}>-</Button>
+                  </div>
+                  <div className={'flex justify-evenly gap-1 my-1'}>
+                      <Button className={'w-[70px] h-[70px] text-3xl'} onClick={() => {setInputNumber(inputNumber + '1')}}>1</Button>
+                      <Button className={'w-[70px] h-[70px] text-3xl'} onClick={() => {setInputNumber(inputNumber + '2')}}>2</Button>
+                      <Button className={'w-[70px] h-[70px] text-3xl'} onClick={() => {setInputNumber(inputNumber + '3')}}>3</Button>
+                      <Button className={'w-[70px] h-[70px] rounded-full bg-green-900 text-3xl'} onClick={() => {setInputNumber(inputNumber + '+')}}>+</Button>
+                  </div>
+                  <div className={'flex justify-evenly gap-1 my-1'}>
+                      <Button className={'w-[147px] h-[70px] text-3xl'} onClick={() => {setInputNumber(inputNumber + '0')}}>0</Button>
+                      <Button className={'w-[70px] h-[70px] text-3xl    '} onClick={() => {setInputNumber(inputNumber + '.')}}>.</Button>
+                      <Button className={'w-[70px] h-[70px] rounded-full bg-green-900 text-3xl'} onClick={() => {submit()}}>=</Button>
+                  </div>
+              </CardContent>
+          </Card>
+      </div>
   )
 }
