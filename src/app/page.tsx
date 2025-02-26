@@ -5,34 +5,51 @@ import {useState} from "react";
 
 export default function Home() {
 
-    const [inputNumber, setInputNumber] = useState<string>('');
-    // Submit function which calculates PLUS
+    const [inputNumber, setInputNumber] = useState<string>('')
+
+    // Submit function --- START
     const submit = () => {
-        const plus = inputNumber.split('+');
-        const multiply = inputNumber.split('*');
-        const minus = inputNumber.split('-');
-        const division = inputNumber.split('/');
-        // in case of Plus
-        if (plus.length > 1) {
-            // setInputNumber((Number(plus[0]) + Number(plus[1])).toString());
-            setInputNumber(plus.reduce((partialSum, a) => Number(partialSum) + Number(a), 0).toString())
+
+       // Step 1: Use RegEx to identify Num/Ops match
+
+        if (/[^0-9+\-*/.]/.test(inputNumber)) {
+            setInputNumber('Error');
+            return;
         }
-        // In case of Multiplication
-        if (multiply.length > 1) {
-            // setInputNumber((Number(multiply[0]) * Number(multiply[1])).toString())
-            setInputNumber(multiply.reduce((partialSum, a) => Number(partialSum) * Number(a), 1).toString())
+
+
+        // Step 2: Extract Num/Ops
+
+        const numbers = inputNumber.split(/[+\-*/]/).map(Number); // split by operators and convert to new array of numbers
+        const operators = inputNumber.match(/[+\-*/]/g) || [] // match the operators and extract to new array
+
+        if (!numbers.length) return;
+
+        // Step 3: Apply multiplication & division first
+        for (let i = 0; i < operators.length; i++) {
+            if (operators[i] === '*' || operators[i] === '/') {
+                const result = operators[i] === '*' // declare result which equals to operators[i] if exists
+                ? numbers[i] * numbers[i + 1] : numbers[i] / numbers[i + 1];// if * exists ? if / exists :
+
+                numbers.splice(i, 2, result); // Replace two numbers in the array with result
+                operators.splice(i, 1); // Remove operator
+                i--; // To stay at the same index
+            }
         }
-        // In case of subtraction
-        if (minus.length > 1) {
-            // setInputNumber((Number(minus[0]) - Number(minus[1])).toString())
-            setInputNumber(minus.reduce((partialSum, a) => Number(partialSum) - Number(a), Number(minus[0])*2).toString())
+
+        // Step 4: Apply addition & subtraction
+        let result = numbers[0] //numbers[0] will be the same as inputNumber inserted by user
+        for (let i = 0; i < operators.length; i++) {
+            if (operators[i] === '+') result += numbers[i + 1];
+            if (operators[i] === '-') result -= numbers[i + 1];
         }
-        // In case of division
-        if (division.length > 1) {
-            setInputNumber((Number(division[0]) / Number(division[1])).toString())
-        }
+
+        // Step 5: Show the result
+
+        setInputNumber(result.toString());
     }
-    // End of Submit function
+
+    // Submit function --- END
   return (
       <div className={'flex justify-center items-center h-screen'}>
           <Card className="w-[350px]">
@@ -74,3 +91,24 @@ export default function Home() {
       </div>
   )
 }
+
+// easy submit to learn ----------------------------------------
+// const submit = () => {
+//     try {
+//         // Validate input to prevent unexpected characters
+//         if (/[^0-9+\-*/.]/.test(inputNumber)) {
+//             setInputNumber("Error");
+//             return;
+//         }
+//
+//         // Use Function() to safely evaluate the expression
+//         const result = new Function(`return ${inputNumber}`)();
+//
+//         // Convert result to string and update state
+//         setInputNumber(result.toString());
+//     } catch {
+//         setInputNumber("Error");
+//     }
+// };
+
+// end of easy submit ------------------------------------------
