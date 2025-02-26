@@ -2,6 +2,8 @@
 import {Card, CardHeader, CardContent} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
 import {useState} from "react";
+import './styles.css'
+
 
 export default function Home() {
 
@@ -16,7 +18,6 @@ export default function Home() {
             setInputNumber('Error');
             return;
         }
-
 
         // Step 2: Extract Num/Ops
 
