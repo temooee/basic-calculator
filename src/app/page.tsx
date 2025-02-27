@@ -54,9 +54,15 @@ export default function Home() {
   return (
       <div className={'flex justify-center items-center h-screen'}>
           <Card className="w-[350px]">
+              <div className={'styledHead'}>
+                  <div className={'bg-amber-400 w-full'}>
               <CardHeader>
-                  <div>{inputNumber}</div>
+                  {inputNumber}
               </CardHeader>
+                  </div>
+
+              </div>
+
               <CardContent>
                   <div className={'flex justify-evenly gap-1 my-1'}>
                       <Button className={'w-[70px] h-[70px] rounded-full bg-gray-600 text-3xl hover:bg-red-700'} onClick={() => {setInputNumber('')}}>C</Button>
@@ -92,7 +98,6 @@ export default function Home() {
       </div>
   )
 }
-
 // easy submit to learn ----------------------------------------
 // const submit = () => {
 //     try {

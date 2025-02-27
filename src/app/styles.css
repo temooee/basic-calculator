@@ -1,3 +1,30 @@
 body {
     background: linear-gradient(180deg, #3e668e 0%, #1f5e11 100%);
 }
+
+.styledHead {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    font-size: 40px; /* Start with large font */
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 10px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    text-align: right;
+    line-height: 1.2; /* Adjust line height for better wrapping */
+    white-space: normal; /* Allow text wrapping */
+    word-break: break-word;
+}
+/* Reduce font size when text wraps to 2nd row */
+@media (max-width: 400px) {
+    .styledHead {
+        font-size: min(10vw, 40px); /* Shrinks dynamically */
+    }
+}
+
+
