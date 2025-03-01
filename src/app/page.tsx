@@ -55,7 +55,7 @@ export default function Home() {
       <div className={'flex justify-center items-center h-screen'}>
           <Card className="w-[350px]">
               <div className={'styledHead'}>
-                  <div className={'bg-amber-400 w-full'}>
+                  <div className={'bg-amber-400 w-full min-h-[96px]'}>
               <CardHeader>
                   {inputNumber}
               </CardHeader>

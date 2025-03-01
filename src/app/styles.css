@@ -20,11 +20,5 @@ body {
     white-space: normal; /* Allow text wrapping */
     word-break: break-word;
 }
-/* Reduce font size when text wraps to 2nd row */
-@media (max-width: 400px) {
-    .styledHead {
-        font-size: min(10vw, 40px); /* Shrinks dynamically */
-    }
-}
 
 
